@@ -1,0 +1,87 @@
+stages:  # List of stages for jobs, and their order of execution
+    - deploy
+    - build
+
+before_script:
+    - echo "$SSH_KNOWN_HOSTS" >> /home/gitlab-runner/.ssh/known_hosts
+    - chmod 644 /home/gitlab-runner/.ssh/known_hosts
+
+deploy-dev1-job: # This job runs in the deploy stage, which runs first.
+    stage: deploy
+    script:
+        - ssh giangnc-ubuntu@192.85.50.43 "cd Desktop/training/team1 && git checkout develop_1 && git pull origin develop_1 && exit"
+        - echo "Application successfully deployed."
+    only:
+        - develop_1
+    tags:
+        - dev
+
+build-dev1-job: # This job runs in the build stage.
+    stage: build
+    script:
+        - ssh giangnc-ubuntu@192.85.50.43 "cd Desktop/training/team1 && ./bin/build-dev1.sh && exit"
+        - echo "Application successfully builed."
+    only:
+        - develop_1
+    tags:
+        - dev
+
+deploy-dev2-job: # This job runs in the deploy stage, which runs first.
+    stage: deploy
+    script:
+        - ssh giangnc-ubuntu@192.85.50.43 "cd Desktop/training/team2 && git checkout develop_2 && git pull origin develop_2 && exit"
+        - echo "Application successfully deployed."
+    only:
+        - develop_2
+    tags:
+        - dev
+
+build-dev2-job: # This job runs in the build stage.
+    stage: build
+    script:
+        - ssh giangnc-ubuntu@192.85.50.43 "cd Desktop/training/team2 && ./bin/build-dev2.sh && exit"
+        - echo "Application successfully builed."
+    only:
+        - develop_2
+    tags:
+        - dev
+
+deploy-dev3-job: # This job runs in the deploy stage, which runs first.
+    stage: deploy
+    script:
+        - ssh giangnc-ubuntu@192.85.50.43 "cd Desktop/training/team3 && git checkout develop_3 && git pull origin develop_3 && exit"
+        - echo "Application successfully deployed."
+    only:
+        - develop_3
+    tags:
+        - dev
+
+build-dev3-job: # This job runs in the build stage.
+    stage: build
+    script:
+        - ssh giangnc-ubuntu@192.85.50.43 "cd Desktop/training/team3 && ./bin/build-dev3.sh && exit"
+        - echo "Application successfully builed."
+    only:
+        - develop_3
+    tags:
+        - dev
+
+deploy-dev4-job: # This job runs in the deploy stage, which runs first.
+    stage: deploy
+    script:
+        - ssh giangnc-ubuntu@192.85.50.43 "cd Desktop/training/team4 && git checkout develop_4 && git pull origin develop_4 && exit"
+        - echo "Application successfully deployed."
+    only:
+        - develop_4
+    tags:
+        - dev
+
+build-dev4-job: # This job runs in the build stage.
+    stage: build
+    script:
+        - ssh giangnc-ubuntu@192.85.50.43 "cd Desktop/training/team4 && ./bin/build-dev4.sh && exit"
+        - echo "Application successfully builed."
+    only:
+        - develop_4
+    tags:
+        - dev
